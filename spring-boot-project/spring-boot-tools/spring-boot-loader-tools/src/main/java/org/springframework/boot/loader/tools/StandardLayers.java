@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Base class for the standard set of {@link Layers}. Defines the following layers:
@@ -41,6 +42,11 @@ public abstract class StandardLayers implements Layers {
 	public static final Layer DEPENDENCIES = new Layer("dependencies");
 
 	/**
+	 * The spring boot loader layer.
+	 */
+	public static final Layer SPRING_BOOT_LOADER = new Layer("spring-boot-loader");
+
+	/**
 	 * The snapshot dependencies layer.
 	 */
 	public static final Layer SNAPSHOT_DEPENDENCIES = new Layer("snapshot-dependencies");
@@ -54,6 +60,7 @@ public abstract class StandardLayers implements Layers {
 	static {
 		List<Layer> layers = new ArrayList<>();
 		layers.add(DEPENDENCIES);
+		layers.add(SPRING_BOOT_LOADER);
 		layers.add(SNAPSHOT_DEPENDENCIES);
 		layers.add(APPLICATION);
 		LAYERS = Collections.unmodifiableList(layers);
@@ -62,6 +69,11 @@ public abstract class StandardLayers implements Layers {
 	@Override
 	public Iterator<Layer> iterator() {
 		return LAYERS.iterator();
+	}
+
+	@Override
+	public Stream<Layer> stream() {
+		return LAYERS.stream();
 	}
 
 }
